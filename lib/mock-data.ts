@@ -1,6 +1,6 @@
 import { WasteLog, SurplusOffer, Kitchen, FoodBank } from "./types";
 
-// all dates are relative to today (2026-03-25)
+// all dates are relative to (2026-03-25)
 function daysAgo(n: number): string {
   const d = new Date("2026-03-25");
   d.setDate(d.getDate() - n);

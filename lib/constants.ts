@@ -30,7 +30,8 @@ export const MEAL_TYPES = [
 
 export const WASTE_REASONS = [
   { id: "over-prepared", label: "Over-prepared" },
-  { id: "spoilage", label: "Spoilage / Expired" },
+  { id: "spoilage", label: "Spoilage" },
+  { id: "expired", label: "Expired" },
   { id: "plate-waste", label: "Plate Waste" },
   { id: "trim-waste", label: "Trim / Prep Waste" },
   { id: "contamination", label: "Contamination" },
@@ -42,3 +43,5 @@ export const WASTE_REASONS = [
 
 export const COST_PER_LB = 3.0;
 export const CO2_MULTIPLIER = 1.5; // lbs CO2 per lb food waste
+
+export const TODAY = "2026-03-25";
