@@ -10,6 +10,35 @@ interface Recommendation {
   text: string;
 }
 
+const CACHE_KEY = "glean-ai-recs";
+
+interface CachedRecs {
+  recommendations: Recommendation[];
+  date: string; // YYYY-MM-DD, regen if day changes
+}
+
+function readCache(): Recommendation[] | null {
+  try {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return null;
+    const cached: CachedRecs = JSON.parse(raw);
+    const today = new Date().toISOString().split("T")[0];
+    if (cached.date !== today) return null;
+    return cached.recommendations;
+  } catch {
+    return null;
+  }
+}
+
+function writeCache(recs: Recommendation[]) {
+  try {
+    const today = new Date().toISOString().split("T")[0];
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ recommendations: recs, date: today }));
+  } catch {
+    // not a big deal if it fails
+  }
+}
+
 const TYPE_CONFIG = {
   portion: {
     label: "Portion Control",
@@ -28,6 +57,14 @@ export default function AIRecommendations() {
   const [error, setError] = useState<string | null>(null);
 
   async function load(isRefresh = false) {
+    if (!isRefresh) {
+      const cached = readCache();
+      if (cached) {
+        setRecs(cached);
+        setLoading(false);
+        return;
+      }
+    }
     if (isRefresh) setRefreshing(true);
     else setLoading(true);
     setError(null);
@@ -38,7 +75,9 @@ export default function AIRecommendations() {
         setError(data.error ?? "Could not load recommendations.");
         setRecs([]);
       } else {
-        setRecs(data.recommendations ?? []);
+        const fetched = data.recommendations ?? [];
+        setRecs(fetched);
+        writeCache(fetched);
       }
     } catch {
       setError("Could not connect to the AI.");
