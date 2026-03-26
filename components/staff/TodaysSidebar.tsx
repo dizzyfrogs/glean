@@ -7,12 +7,15 @@ import { TODAY } from "@/lib/constants";
 
 export function TodaysSidebar() {
   const wasteLogs = useStore((s) => s.wasteLogs);
+  const currentUser = useStore((s) => s.currentUser);
 
-  const todayLogs = wasteLogs.filter((l) => l.date === TODAY);
+  const isManager = currentUser?.role === "manager";
+  const myLogs = wasteLogs.filter((l) => l.logged_by === currentUser?.name);
+  const todayLogs = (isManager ? wasteLogs : myLogs).filter((l) => l.date === TODAY);
 
-  const weekStart = new Date(TODAY);
+  const weekStart = new Date(TODAY + "T12:00:00");
   weekStart.setDate(weekStart.getDate() - 6);
-  const weekLogs = wasteLogs.filter((l) => new Date(l.date) >= weekStart);
+  const weekLogs = myLogs.filter((l) => new Date(l.date + "T12:00:00") >= weekStart);
   const weekLbs = weekLogs.reduce((sum, l) => sum + l.qty_lbs, 0);
 
   return (
@@ -20,7 +23,7 @@ export function TodaysSidebar() {
       <Card padding="none">
         <div className="px-5 pt-5 pb-3 border-b border-[#e7e5e0]">
           <p className="text-[13px] font-semibold text-[#7d7870] uppercase tracking-wide font-jakarta">
-            Today's entries
+            {isManager ? "Today's team entries" : "Today's entries"}
           </p>
         </div>
 
@@ -43,6 +46,7 @@ export function TodaysSidebar() {
                   <p className="text-[14px] font-semibold text-[#1a1916] truncate">{log.item}</p>
                   <p className="text-[12px] text-[#7d7870] mt-0.5">
                     {log.category} &middot; {log.qty_lbs} {log.unit}
+                    {isManager && <span className="ml-1">&middot; {log.logged_by}</span>}
                   </p>
                 </div>
               </li>
@@ -53,16 +57,13 @@ export function TodaysSidebar() {
 
       <Card padding="md" className="!bg-[#f2f7ee] !border-[#c4dfad]">
         <p className="text-[13px] font-semibold text-[#7d7870] uppercase tracking-wide font-jakarta mb-3">
-          Your impact this week
+          This week
         </p>
         <p className="font-fraunces text-[28px] font-[500] text-[#2d5016] leading-tight">
           {weekLbs.toFixed(1)} lbs
         </p>
         <p className="text-[13px] text-[#5c5851] font-jakarta mt-0.5">
           across {weekLogs.length} {weekLogs.length === 1 ? "entry" : "entries"}
-        </p>
-        <p className="text-[13px] text-[#3d6827] font-jakarta mt-3">
-          Every entry helps reduce campus waste.
         </p>
       </Card>
     </div>

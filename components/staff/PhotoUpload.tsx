@@ -6,9 +6,12 @@ import { Upload, CircleX } from "lucide-react";
 interface PhotoUploadProps {
   value: string | null;
   onChange: (url: string | null) => void;
+  label?: string;
+  optional?: boolean;
+  helperText?: string;
 }
 
-export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
+export function PhotoUpload({ value, onChange, label = "Photo", optional, helperText = "Optional, helps managers review" }: PhotoUploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -24,7 +27,10 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
 
   return (
     <div>
-      <p className="text-[13px] font-semibold text-[#1a1916] mb-2 font-jakarta">Photo</p>
+      <p className="text-[13px] font-semibold text-[#1a1916] mb-2 font-jakarta">
+        {label}
+        {optional && <span className="font-normal text-[#7d7870] ml-1">(optional)</span>}
+      </p>
       <input
         ref={inputRef}
         type="file"
@@ -61,7 +67,7 @@ export function PhotoUpload({ value, onChange }: PhotoUploadProps) {
             Attach a photo
           </span>
           <span className="text-[12px] text-[#7d7870] font-jakarta">
-            Optional, helps managers review
+            {helperText}
           </span>
         </button>
       )}

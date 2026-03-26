@@ -15,8 +15,6 @@ const ROLE_LABELS: Record<string, string> = {
 
 const MANAGER_NAV = [
   { href: "/manager", label: "Dashboard" },
-  { href: "/manager/logs", label: "Waste Logs" },
-  { href: "/manager/surplus", label: "Surplus" },
 ];
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
