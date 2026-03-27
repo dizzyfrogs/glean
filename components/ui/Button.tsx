@@ -50,7 +50,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {loading && (
           <Loader2
             size={16}
-            strokeWidth={2}
+            strokeWidth={1.5}
             className="animate-spin"
             aria-hidden="true"
           />

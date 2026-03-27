@@ -146,7 +146,7 @@ export default function AIRecommendations() {
                 className="p-4 rounded-[10px] border border-[#c9e0b6] bg-[#f5fbf0]"
               >
                 <div className="flex items-center gap-1.5 mb-2">
-                  <Icon size={14} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
+                  <Icon size={16} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
                   <span className="font-jakarta text-[10px] font-semibold uppercase tracking-wider text-[#4a7c2f]">
                     {label}
                   </span>

@@ -105,7 +105,7 @@ export default function OfferCard({ offer, myOrgName, onClaim, onViewInstruction
                   : "bg-[#f4f3f0] text-[#7d7870]"
               }`}
             >
-              <CheckCircle2 size={11} strokeWidth={1.5} aria-hidden />
+              <CheckCircle2 size={14} strokeWidth={1.5} aria-hidden />
               {isMyClm ? "Claimed by you" : "Claimed"}
             </span>
           ) : (
@@ -125,7 +125,7 @@ export default function OfferCard({ offer, myOrgName, onClaim, onViewInstruction
 
         {/* Kitchen */}
         <div className="flex items-center gap-1.5 mb-4">
-          <MapPin size={13} strokeWidth={1.5} className="text-[#7d7870] flex-shrink-0" aria-hidden />
+          <MapPin size={16} strokeWidth={1.5} className="text-[#7d7870] flex-shrink-0" aria-hidden />
           <span className="font-jakarta text-[12px] text-[#7d7870]">{offer.kitchen_name}</span>
           {distanceMi != null && (
             <>
@@ -143,7 +143,7 @@ export default function OfferCard({ offer, myOrgName, onClaim, onViewInstruction
             className="flex items-center gap-1.5"
             aria-label={`${offer.qty} ${offer.unit}`}
           >
-            <Scale size={14} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
+            <Scale size={16} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
             <span className="font-jakarta text-[13px] text-[#5c5851]">
               {offer.qty} {offer.unit}
             </span>
@@ -153,7 +153,7 @@ export default function OfferCard({ offer, myOrgName, onClaim, onViewInstruction
               className="flex items-center gap-1.5"
               aria-label={`${offer.qty_portions} portions`}
             >
-              <Users size={14} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
+              <Users size={16} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
               <span className="font-jakarta text-[13px] text-[#5c5851]">
                 {offer.qty_portions} portions
               </span>
@@ -163,7 +163,7 @@ export default function OfferCard({ offer, myOrgName, onClaim, onViewInstruction
             className="flex items-center gap-1.5"
             aria-label={`Food type: ${FOOD_TYPE_LABELS[offer.food_type]}`}
           >
-            <Thermometer size={14} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
+            <Thermometer size={16} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
             <span className="font-jakarta text-[13px] text-[#5c5851]">
               {FOOD_TYPE_LABELS[offer.food_type]}
             </span>
@@ -172,7 +172,7 @@ export default function OfferCard({ offer, myOrgName, onClaim, onViewInstruction
             className="flex items-center gap-1.5"
             aria-label={`Pickup ${formatTime(offer.pickup_from)} to ${formatTime(offer.pickup_by)}`}
           >
-            <Clock size={14} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
+            <Clock size={16} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
             <span className="font-jakarta text-[13px] text-[#5c5851]">
               {formatTime(offer.pickup_from)} to {formatTime(offer.pickup_by)}
             </span>
@@ -200,7 +200,7 @@ export default function OfferCard({ offer, myOrgName, onClaim, onViewInstruction
               className="flex items-center gap-1.5 font-jakarta text-[13px] text-[#4a7c2f] hover:underline"
               aria-label={`Call ${kitchen.contact_name}`}
             >
-              <Phone size={13} strokeWidth={1.5} aria-hidden />
+              <Phone size={16} strokeWidth={1.5} aria-hidden />
               {kitchen.contact_phone}
             </a>
             <a
@@ -208,7 +208,7 @@ export default function OfferCard({ offer, myOrgName, onClaim, onViewInstruction
               className="flex items-center gap-1.5 font-jakarta text-[13px] text-[#4a7c2f] hover:underline"
               aria-label={`Email ${kitchen.contact_name}`}
             >
-              <Mail size={13} strokeWidth={1.5} aria-hidden />
+              <Mail size={16} strokeWidth={1.5} aria-hidden />
               {kitchen.contact_email}
             </a>
           </div>

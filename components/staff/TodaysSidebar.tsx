@@ -30,7 +30,7 @@ export function TodaysSidebar() {
         {todayLogs.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-10 px-4 text-center">
             <ClipboardList
-              size={28}
+              size={20}
               strokeWidth={1.5}
               className="text-[#d4d1ca] mb-3"
               aria-hidden="true"

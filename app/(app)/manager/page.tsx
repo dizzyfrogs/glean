@@ -61,19 +61,20 @@ export default function ManagerPage() {
       <MetricsRow />
 
       {/* Tab bar */}
-      <div className="mt-6 mb-6 flex items-center gap-1 bg-[#f0eeea] rounded-[12px] p-1 w-fit">
+      <div className="mt-6 mb-6 overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+        <div className="flex items-center gap-1 bg-[#f0eeea] rounded-[12px] p-1 w-max">
         {TABS.map(({ id, label, Icon }) => (
           <button
             key={id}
             onClick={() => setTab(id)}
-            className={`relative flex items-center gap-2 px-4 h-[36px] rounded-[9px] font-jakarta text-[13px] font-semibold transition-all duration-150 ${
+            className={`relative flex items-center gap-2 px-4 h-[44px] rounded-[9px] font-jakarta text-[13px] font-semibold transition-all duration-150 whitespace-nowrap ${
               tab === id
                 ? "bg-white text-[#1a1916] shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
                 : "text-[#7d7870] hover:text-[#1a1916]"
             }`}
             aria-pressed={tab === id}
           >
-            <Icon size={14} strokeWidth={1.5} aria-hidden />
+            <Icon size={16} strokeWidth={1.5} aria-hidden />
             {label}
             {id === "surplus" && newClaimsCount > 0 && (
               <span className="ml-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#4a7c2f] text-white font-jakarta text-[10px] font-bold flex items-center justify-center leading-none" aria-label={`${newClaimsCount} new claims`}>
@@ -82,6 +83,7 @@ export default function ManagerPage() {
             )}
           </button>
         ))}
+        </div>
       </div>
 
       {/* Overview */}

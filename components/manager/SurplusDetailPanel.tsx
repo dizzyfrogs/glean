@@ -100,7 +100,7 @@ export function SurplusDetailPanel({ offer, onClose, onEdit, onDelete, onComplet
             <div className="flex items-start justify-between px-6 pt-6 pb-4 border-b border-[#e7e5e0]">
               <div className="flex-1 min-w-0 pr-4">
                 <div className="flex items-center gap-2 mb-1">
-                  <FoodIcon size={14} strokeWidth={1.5} className="text-[#4a7c2f] flex-shrink-0" aria-hidden />
+                  <FoodIcon size={16} strokeWidth={1.5} className="text-[#4a7c2f] flex-shrink-0" aria-hidden />
                   <span className="font-jakarta text-[11px] font-semibold uppercase tracking-wider text-[#7d7870]">
                     {offer.food_type}
                   </span>
@@ -112,7 +112,7 @@ export function SurplusDetailPanel({ offer, onClose, onEdit, onDelete, onComplet
               </div>
               <button
                 onClick={onClose}
-                className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#f4f3f0] transition-colors flex-shrink-0 mt-0.5"
+                className="w-11 h-11 flex items-center justify-center rounded-full hover:bg-[#f4f3f0] transition-colors flex-shrink-0 -mt-1.5 -mr-1.5"
                 aria-label="Close panel"
               >
                 <X size={16} strokeWidth={1.5} className="text-[#7d7870]" aria-hidden />
@@ -202,21 +202,21 @@ export function SurplusDetailPanel({ offer, onClose, onEdit, onDelete, onComplet
                       href={`tel:${offer.claimed_by.contact_phone}`}
                       className="flex items-center gap-2 font-jakarta text-[13px] text-[#4a7c2f] hover:underline"
                     >
-                      <Phone size={13} strokeWidth={1.5} aria-hidden />
+                      <Phone size={16} strokeWidth={1.5} aria-hidden />
                       {offer.claimed_by.contact_phone}
                     </a>
                     <a
                       href={`mailto:${offer.claimed_by.contact_email}`}
                       className="flex items-center gap-2 font-jakarta text-[13px] text-[#4a7c2f] hover:underline"
                     >
-                      <Mail size={13} strokeWidth={1.5} aria-hidden />
+                      <Mail size={16} strokeWidth={1.5} aria-hidden />
                       {offer.claimed_by.contact_email}
                     </a>
                   </div>
                   {offer.claimed_by.note_to_kitchen && (
                     <div className="mt-3 pt-3 border-t border-[#c9e0b6]">
                       <div className="flex items-center gap-1.5 mb-1">
-                        <MessageSquare size={12} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
+                        <MessageSquare size={16} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
                         <span className="font-jakarta text-[11px] font-semibold text-[#4a7c2f] uppercase tracking-wider">
                           Note from food bank
                         </span>
@@ -237,7 +237,7 @@ export function SurplusDetailPanel({ offer, onClose, onEdit, onDelete, onComplet
                     href={`tel:${offer.pickup_contact}`}
                     className="flex items-center gap-2 font-jakarta text-[13px] text-[#4a7c2f] hover:underline"
                   >
-                    <Phone size={13} strokeWidth={1.5} aria-hidden />
+                    <Phone size={16} strokeWidth={1.5} aria-hidden />
                     {offer.pickup_contact}
                   </a>
                 </div>

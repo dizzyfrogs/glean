@@ -52,7 +52,7 @@ function ActiveOfferRow({
   return (
     <div className="flex items-center gap-4 py-3.5 px-5 hover:bg-[#fafaf8] transition-colors group border-b border-[#f0eeea] last:border-b-0">
       <div className="w-8 h-8 rounded-full bg-[#f2f7ee] flex items-center justify-center flex-shrink-0">
-        <Circle size={14} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
+        <Circle size={16} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
       </div>
       <div className="flex-1 min-w-0">
         <p className="font-jakarta text-[13px] font-semibold text-[#1a1916] truncate">
@@ -64,7 +64,7 @@ function ActiveOfferRow({
           </span>
           <span className="text-[#d4d1ca]">·</span>
           <div className="flex items-center gap-1 text-[#7d7870]">
-            <Clock size={11} strokeWidth={1.5} aria-hidden />
+            <Clock size={16} strokeWidth={1.5} aria-hidden />
             <span className="font-jakarta text-[12px]">
               {formatTime(offer.pickup_from)} to {formatTime(offer.pickup_by)}
             </span>
@@ -83,17 +83,17 @@ function ActiveOfferRow({
           <>
             <button
               onClick={() => onEdit(offer)}
-              className="flex items-center justify-center w-[32px] h-[44px] text-[#7d7870] hover:text-[#1a1916] transition-colors"
+              className="hidden sm:flex items-center justify-center w-[32px] h-[44px] text-[#7d7870] hover:text-[#1a1916] transition-colors"
               aria-label={`Edit ${offer.item}`}
             >
-              <Pencil size={14} strokeWidth={1.5} aria-hidden />
+              <Pencil size={16} strokeWidth={1.5} aria-hidden />
             </button>
             <button
               onClick={() => onDelete(offer.id)}
-              className="flex items-center justify-center w-[32px] h-[44px] text-[#7d7870] hover:text-[#c73a2a] transition-colors"
+              className="hidden sm:flex items-center justify-center w-[32px] h-[44px] text-[#7d7870] hover:text-[#c73a2a] transition-colors"
               aria-label={`Remove ${offer.item}`}
             >
-              <Trash2 size={14} strokeWidth={1.5} aria-hidden />
+              <Trash2 size={16} strokeWidth={1.5} aria-hidden />
             </button>
           </>
         )}
@@ -103,7 +103,7 @@ function ActiveOfferRow({
           aria-label={`View details for ${offer.item}`}
         >
           View details
-          <ChevronRight size={14} strokeWidth={1.5} aria-hidden />
+          <ChevronRight size={16} strokeWidth={1.5} aria-hidden />
         </button>
       </div>
     </div>
@@ -123,7 +123,7 @@ function ClaimedOfferRow({
     <div className="py-3.5 px-5 hover:bg-[#fafaf8] transition-colors border-b border-[#f0eeea] last:border-b-0">
       <div className="flex items-start gap-4">
         <div className="w-8 h-8 rounded-full bg-[#f2f7ee] flex items-center justify-center flex-shrink-0 mt-0.5">
-          <CheckCircle size={14} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
+          <CheckCircle size={16} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-4">
@@ -137,7 +137,7 @@ function ClaimedOfferRow({
                 </span>
                 <span className="text-[#d4d1ca]">·</span>
                 <div className="flex items-center gap-1 text-[#7d7870]">
-                  <Clock size={11} strokeWidth={1.5} aria-hidden />
+                  <Clock size={16} strokeWidth={1.5} aria-hidden />
                   <span className="font-jakarta text-[12px]">
                     {formatTime(offer.pickup_from)} to {formatTime(offer.pickup_by)}
                   </span>
@@ -147,10 +147,10 @@ function ClaimedOfferRow({
             <div className="flex items-center gap-2 flex-shrink-0">
               <button
                 onClick={() => onComplete(offer.id)}
-                className="flex items-center gap-1.5 px-3 h-[32px] rounded-[8px] border border-[#c9e0b6] bg-[#f5fbf0] font-jakarta text-[11px] font-semibold text-[#4a7c2f] hover:bg-[#eaf5e0] transition-colors"
+                className="flex items-center gap-1.5 px-3 min-h-[44px] rounded-[8px] border border-[#c9e0b6] bg-[#f5fbf0] font-jakarta text-[11px] font-semibold text-[#4a7c2f] hover:bg-[#eaf5e0] transition-colors"
                 aria-label={`Mark ${offer.item} as completed`}
               >
-                <CheckCircle size={11} strokeWidth={1.5} aria-hidden />
+                <CheckCircle size={16} strokeWidth={1.5} aria-hidden />
                 Mark completed
               </button>
               <button
@@ -159,7 +159,7 @@ function ClaimedOfferRow({
                 aria-label={`View details for ${offer.item}`}
               >
                 View details
-                <ChevronRight size={14} strokeWidth={1.5} aria-hidden />
+                <ChevronRight size={16} strokeWidth={1.5} aria-hidden />
               </button>
             </div>
           </div>
@@ -167,7 +167,7 @@ function ClaimedOfferRow({
           {offer.claimed_by && (
             <div className="mt-2 flex flex-col gap-1">
               <div className="flex items-center gap-1.5">
-                <Building size={12} strokeWidth={1.5} className="text-[#4a7c2f] flex-shrink-0" aria-hidden />
+                <Building size={16} strokeWidth={1.5} className="text-[#4a7c2f] flex-shrink-0" aria-hidden />
                 <span className="font-jakarta text-[12px] font-semibold text-[#1a1916]">
                   Claimed by {offer.claimed_by.org_name}
                 </span>
@@ -183,14 +183,14 @@ function ClaimedOfferRow({
                   href={`tel:${offer.claimed_by.contact_phone}`}
                   className="flex items-center gap-1 font-jakarta text-[12px] text-[#4a7c2f] hover:underline"
                 >
-                  <Phone size={11} strokeWidth={1.5} aria-hidden />
+                  <Phone size={16} strokeWidth={1.5} aria-hidden />
                   {offer.claimed_by.contact_phone}
                 </a>
                 <a
                   href={`mailto:${offer.claimed_by.contact_email}`}
                   className="flex items-center gap-1 font-jakarta text-[12px] text-[#4a7c2f] hover:underline"
                 >
-                  <Mail size={11} strokeWidth={1.5} aria-hidden />
+                  <Mail size={16} strokeWidth={1.5} aria-hidden />
                   {offer.claimed_by.contact_email}
                 </a>
               </div>
@@ -213,7 +213,7 @@ function CompletedOfferRow({
     <div className="py-3 px-5 hover:bg-[#fafaf8] transition-colors border-b border-[#f0eeea] last:border-b-0">
       <div className="flex items-center gap-4">
         <div className="w-7 h-7 rounded-full bg-[#f4f3f0] flex items-center justify-center flex-shrink-0">
-          <CheckCircle size={13} strokeWidth={1.5} className="text-[#b8b4ae]" aria-hidden />
+          <CheckCircle size={14} strokeWidth={1.5} className="text-[#b8b4ae]" aria-hidden />
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-jakarta text-[13px] font-semibold text-[#5c5851] truncate">
@@ -303,7 +303,7 @@ export default function SurplusOfferList() {
 
           {activeOffers.length === 0 ? (
             <div className="px-5 py-10 flex flex-col items-center gap-2 text-center">
-              <Package size={24} strokeWidth={1.5} className="text-[#d4d1ca]" aria-hidden />
+              <Package size={20} strokeWidth={1.5} className="text-[#d4d1ca]" aria-hidden />
               <p className="font-jakarta text-[14px] font-semibold text-[#7d7870]">No active offers</p>
               <p className="font-jakarta text-[12px] text-[#7d7870]">
                 Broadcast an offer so food banks can see what&apos;s available.
@@ -337,7 +337,7 @@ export default function SurplusOfferList() {
 
           {claimedOffers.length === 0 ? (
             <div className="px-5 py-10 flex flex-col items-center gap-2 text-center">
-              <CheckCircle size={24} strokeWidth={1.5} className="text-[#d4d1ca]" aria-hidden />
+              <CheckCircle size={20} strokeWidth={1.5} className="text-[#d4d1ca]" aria-hidden />
               <p className="font-jakarta text-[14px] font-semibold text-[#7d7870]">No claimed offers yet</p>
               <p className="font-jakarta text-[12px] text-[#7d7870]">
                 When a food bank claims an offer it will appear here.
@@ -373,7 +373,7 @@ export default function SurplusOfferList() {
 
           {completedOffers.length === 0 ? (
             <div className="px-5 py-8 flex flex-col items-center gap-2 text-center">
-              <History size={24} strokeWidth={1.5} className="text-[#d4d1ca]" aria-hidden />
+              <History size={20} strokeWidth={1.5} className="text-[#d4d1ca]" aria-hidden />
               <p className="font-jakarta text-[14px] font-semibold text-[#7d7870]">No completed redistributions yet</p>
               <p className="font-jakarta text-[12px] text-[#7d7870]">
                 Mark a claimed offer as completed once the food bank has picked it up.

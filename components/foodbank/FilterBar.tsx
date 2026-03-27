@@ -34,7 +34,7 @@ export default function FilterBar({ active, onChange }: Props) {
             }`}
             aria-pressed={isActive}
           >
-            <Icon size={14} strokeWidth={1.5} aria-hidden />
+            <Icon size={16} strokeWidth={1.5} aria-hidden />
             {label}
           </button>
         );
