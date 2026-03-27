@@ -30,7 +30,7 @@ export default function MetricsRow() {
   const co2 = thisWeekLbs * CO2_MULTIPLIER;
 
   const redistributedLbs = surplusOffers
-    .filter((o) => o.status === "claimed" || o.status === "pending")
+    .filter((o) => o.status === "completed")
     .reduce((s, o) => s + o.qty, 0);
 
   return (

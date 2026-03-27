@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Flame, Snowflake, Leaf, Croissant, Package, Loader2 } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
 import { PhotoUpload } from "@/components/staff/PhotoUpload";
 import { useStore, KITCHENS } from "@/lib/store";
 import { useToast } from "@/components/ui/Toast";
+import { SurplusOffer } from "@/lib/types";
 
 const FOOD_TYPES = [
   { id: "hot" as const, label: "Hot", Icon: Flame },
@@ -63,14 +64,58 @@ const INITIAL: FormState = {
 interface Props {
   open: boolean;
   onClose: () => void;
+  editOffer?: SurplusOffer;
 }
 
-export default function BroadcastModal({ open, onClose }: Props) {
+export default function BroadcastModal({ open, onClose, editOffer }: Props) {
   const addSurplusOffer = useStore((s) => s.addSurplusOffer);
+  const updateSurplusOffer = useStore((s) => s.updateSurplusOffer);
   const { toast } = useToast();
-  const [form, setForm] = useState<FormState>(INITIAL);
+
+  const initialForm: FormState = editOffer
+    ? {
+        item: editOffer.item,
+        qty: String(editOffer.qty),
+        unit: editOffer.unit,
+        qty_portions: editOffer.qty_portions != null ? String(editOffer.qty_portions) : "",
+        food_type: editOffer.food_type,
+        photo_url: editOffer.photo_url ?? null,
+        pickup_from: editOffer.pickup_from,
+        pickup_by: editOffer.pickup_by,
+        pickup_instructions: editOffer.pickup_instructions,
+        pickup_contact: editOffer.pickup_contact ?? "",
+        contact_email: editOffer.pickup_contact ?? kitchen.contact_email,
+        notes: editOffer.notes ?? "",
+      }
+    : INITIAL;
+
+  const [form, setForm] = useState<FormState>(initialForm);
   const [errors, setErrors] = useState<Errors>({});
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (open) {
+      setForm(
+        editOffer
+          ? {
+              item: editOffer.item,
+              qty: String(editOffer.qty),
+              unit: editOffer.unit,
+              qty_portions: editOffer.qty_portions != null ? String(editOffer.qty_portions) : "",
+              food_type: editOffer.food_type,
+              photo_url: editOffer.photo_url ?? null,
+              pickup_from: editOffer.pickup_from,
+              pickup_by: editOffer.pickup_by,
+              pickup_instructions: editOffer.pickup_instructions,
+              pickup_contact: editOffer.pickup_contact ?? "",
+              contact_email: editOffer.pickup_contact ?? kitchen.contact_email,
+              notes: editOffer.notes ?? "",
+            }
+          : INITIAL
+      );
+      setErrors({});
+    }
+  }, [open, editOffer]);
 
   function set<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -95,9 +140,7 @@ export default function BroadcastModal({ open, onClose }: Props) {
     setSubmitting(true);
     await new Promise((r) => setTimeout(r, 600));
 
-    addSurplusOffer({
-      kitchen_name: kitchen.name,
-      kitchen_id: kitchen.id,
+    const payload = {
       item: form.item.trim(),
       qty: parseFloat(form.qty),
       unit: form.unit,
@@ -109,10 +152,21 @@ export default function BroadcastModal({ open, onClose }: Props) {
       pickup_from: form.pickup_from,
       pickup_by: form.pickup_by,
       notes: form.notes || undefined,
-      status: "available",
-    });
+    };
 
-    toast("Surplus offer broadcast to food banks.", "success");
+    if (editOffer) {
+      updateSurplusOffer(editOffer.id, payload);
+      toast("Offer updated.", "success");
+    } else {
+      addSurplusOffer({
+        ...payload,
+        kitchen_name: kitchen.name,
+        kitchen_id: kitchen.id,
+        status: "available",
+      });
+      toast("Surplus offer broadcast to food banks.", "success");
+    }
+
     setSubmitting(false);
     setForm(INITIAL);
     setErrors({});
@@ -127,7 +181,7 @@ export default function BroadcastModal({ open, onClose }: Props) {
   }
 
   return (
-    <Modal open={open} onClose={handleClose} title="Broadcast Surplus" width="max-w-xl">
+    <Modal open={open} onClose={handleClose} title={editOffer ? "Edit Offer" : "Broadcast Surplus"} width="max-w-xl">
       <form onSubmit={handleSubmit} noValidate className="space-y-5">
         {/* Item name */}
         <div>
@@ -368,6 +422,8 @@ export default function BroadcastModal({ open, onClose }: Props) {
                 <Loader2 size={16} strokeWidth={1.5} className="animate-spin" aria-hidden />
                 Broadcasting...
               </>
+            ) : editOffer ? (
+              "Save changes"
             ) : (
               "Broadcast surplus offer"
             )}

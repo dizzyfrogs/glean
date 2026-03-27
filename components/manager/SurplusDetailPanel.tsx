@@ -14,7 +14,9 @@ import {
   Croissant,
   Package,
   CheckCircle,
-  AlertCircle,
+  Pencil,
+  Trash2,
+  MessageSquare,
 } from "lucide-react";
 import { SurplusOffer } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
@@ -22,6 +24,9 @@ import { Badge } from "@/components/ui/Badge";
 interface Props {
   offer: SurplusOffer | null;
   onClose: () => void;
+  onEdit?: (offer: SurplusOffer) => void;
+  onDelete?: (id: string) => void;
+  onComplete?: (id: string) => void;
 }
 
 const FOOD_TYPE_ICONS = {
@@ -49,7 +54,7 @@ function timeAgo(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
-export function SurplusDetailPanel({ offer, onClose }: Props) {
+export function SurplusDetailPanel({ offer, onClose, onEdit, onDelete, onComplete }: Props) {
   const open = !!offer;
 
   useEffect(() => {
@@ -208,6 +213,19 @@ export function SurplusDetailPanel({ offer, onClose }: Props) {
                       {offer.claimed_by.contact_email}
                     </a>
                   </div>
+                  {offer.claimed_by.note_to_kitchen && (
+                    <div className="mt-3 pt-3 border-t border-[#c9e0b6]">
+                      <div className="flex items-center gap-1.5 mb-1">
+                        <MessageSquare size={12} strokeWidth={1.5} className="text-[#4a7c2f]" aria-hidden />
+                        <span className="font-jakarta text-[11px] font-semibold text-[#4a7c2f] uppercase tracking-wider">
+                          Note from food bank
+                        </span>
+                      </div>
+                      <p className="font-jakarta text-[13px] text-[#1a1916] leading-relaxed">
+                        {offer.claimed_by.note_to_kitchen}
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -226,16 +244,50 @@ export function SurplusDetailPanel({ offer, onClose }: Props) {
               )}
             </div>
 
-            {/* Footer for claimed: Get in touch */}
-            {offer.claimed_by && (
-              <div className="px-6 py-4 border-t border-[#e7e5e0]">
-                <a
-                  href={`mailto:${offer.claimed_by.contact_email}`}
-                  className="flex items-center justify-center gap-2 w-full h-[44px] rounded-[10px] bg-[#4a7c2f] text-white font-jakarta text-[13px] font-semibold shadow-[0_2px_8px_rgba(74,124,47,0.3)] hover:bg-[#3d6827] transition-all hover:-translate-y-0.5"
-                >
-                  <Mail size={14} strokeWidth={1.5} aria-hidden />
-                  Get in touch
-                </a>
+            {/* Footer actions */}
+            {offer.status === "available" && (onEdit || onDelete) && (
+              <div className="px-6 py-4 border-t border-[#e7e5e0] flex gap-3">
+                {onEdit && (
+                  <button
+                    onClick={() => { onEdit(offer); onClose(); }}
+                    className="flex-1 flex items-center justify-center gap-2 h-[44px] rounded-[10px] border border-[#e7e5e0] bg-white font-jakarta text-[13px] font-semibold text-[#5c5851] hover:bg-[#f4f3f0] transition-colors"
+                  >
+                    <Pencil size={14} strokeWidth={1.5} aria-hidden />
+                    Edit offer
+                  </button>
+                )}
+                {onDelete && (
+                  <button
+                    onClick={() => { onDelete(offer.id); onClose(); }}
+                    className="flex items-center justify-center gap-2 h-[44px] px-4 rounded-[10px] border border-[#f4d0cc] bg-[#fef8f7] font-jakarta text-[13px] font-semibold text-[#c73a2a] hover:bg-[#fdecea] transition-colors"
+                    aria-label="Remove offer"
+                  >
+                    <Trash2 size={14} strokeWidth={1.5} aria-hidden />
+                    Remove
+                  </button>
+                )}
+              </div>
+            )}
+            {offer.status === "claimed" && (
+              <div className="px-6 py-4 border-t border-[#e7e5e0] flex gap-3">
+                {offer.claimed_by && (
+                  <a
+                    href={`mailto:${offer.claimed_by.contact_email}`}
+                    className="flex-1 flex items-center justify-center gap-2 h-[44px] rounded-[10px] border border-[#e7e5e0] bg-white font-jakarta text-[13px] font-semibold text-[#5c5851] hover:bg-[#f4f3f0] transition-colors"
+                  >
+                    <Mail size={14} strokeWidth={1.5} aria-hidden />
+                    Get in touch
+                  </a>
+                )}
+                {onComplete && (
+                  <button
+                    onClick={() => { onComplete(offer.id); onClose(); }}
+                    className="flex-1 flex items-center justify-center gap-2 h-[44px] rounded-[10px] bg-[#4a7c2f] text-white font-jakarta text-[13px] font-semibold shadow-[0_2px_8px_rgba(74,124,47,0.3)] hover:bg-[#3d6827] transition-all hover:-translate-y-0.5"
+                  >
+                    <CheckCircle size={14} strokeWidth={1.5} aria-hidden />
+                    Mark completed
+                  </button>
+                )}
               </div>
             )}
           </>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus, BarChart2, ArrowLeftRight, ClipboardList } from "lucide-react";
+import { useStore } from "@/lib/store";
 import MetricsRow from "@/components/manager/MetricsRow";
 import WasteChart from "@/components/manager/WasteChart";
 import CategoryDonut from "@/components/manager/CategoryDonut";
@@ -31,6 +32,8 @@ const TABS: { id: Tab; label: string; Icon: React.ElementType }[] = [
 export default function ManagerPage() {
   const [tab, setTab] = useState<Tab>("overview");
   const [broadcastOpen, setBroadcastOpen] = useState(false);
+  const surplusOffers = useStore((s) => s.surplusOffers);
+  const newClaimsCount = surplusOffers.filter((o) => o.status === "claimed" || o.status === "pending").length;
 
   return (
     <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8">
@@ -63,7 +66,7 @@ export default function ManagerPage() {
           <button
             key={id}
             onClick={() => setTab(id)}
-            className={`flex items-center gap-2 px-4 h-[36px] rounded-[9px] font-jakarta text-[13px] font-semibold transition-all duration-150 ${
+            className={`relative flex items-center gap-2 px-4 h-[36px] rounded-[9px] font-jakarta text-[13px] font-semibold transition-all duration-150 ${
               tab === id
                 ? "bg-white text-[#1a1916] shadow-[0_1px_3px_rgba(0,0,0,0.08)]"
                 : "text-[#7d7870] hover:text-[#1a1916]"
@@ -72,6 +75,11 @@ export default function ManagerPage() {
           >
             <Icon size={14} strokeWidth={1.5} aria-hidden />
             {label}
+            {id === "surplus" && newClaimsCount > 0 && (
+              <span className="ml-0.5 min-w-[18px] h-[18px] px-1 rounded-full bg-[#4a7c2f] text-white font-jakarta text-[10px] font-bold flex items-center justify-center leading-none" aria-label={`${newClaimsCount} new claims`}>
+                {newClaimsCount}
+              </span>
+            )}
           </button>
         ))}
       </div>

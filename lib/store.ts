@@ -25,6 +25,7 @@ interface GleanStore {
     id: string,
     claimedBy: NonNullable<SurplusOffer["claimed_by"]>
   ) => void;
+  completeSurplusOffer: (id: string) => void;
   deleteSurplusOffer: (id: string) => void;
 }
 
@@ -101,6 +102,15 @@ export const useStore = create<GleanStore>((set) => ({
       surplusOffers: state.surplusOffers.map((o) =>
         o.id === id
           ? { ...o, status: "claimed", claimed_by: claimedBy }
+          : o
+      ),
+    })),
+
+  completeSurplusOffer: (id) =>
+    set((state) => ({
+      surplusOffers: state.surplusOffers.map((o) =>
+        o.id === id
+          ? { ...o, status: "completed", completed_at: new Date().toISOString() }
           : o
       ),
     })),

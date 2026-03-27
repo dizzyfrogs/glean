@@ -16,6 +16,8 @@ export const KITCHENS: Kitchen[] = [
     contact_phone: "(555) 201-4892",
     contact_email: "priya.nair@university.edu",
     default_pickup_instructions: "Please call 15 minutes before pickup",
+    lat: 37.872,
+    lng: -122.260,
   },
   {
     id: "kitchen-b",
@@ -26,6 +28,8 @@ export const KITCHENS: Kitchen[] = [
     contact_email: "kitchen@campuscenter.edu",
     default_pickup_instructions:
       "Walk to the rear loading dock and ask for Priya",
+    lat: 37.874,
+    lng: -122.261,
   },
 ];
 
@@ -37,6 +41,8 @@ export const FOOD_BANKS: FoodBank[] = [
     contact_phone: "(555) 847-2201",
     contact_email: "marcus.webb@cityfoodbank.org",
     distance_mi: 1.4,
+    lat: 37.865,
+    lng: -122.252,
   },
   {
     id: "fb-community",
@@ -45,6 +51,8 @@ export const FOOD_BANKS: FoodBank[] = [
     contact_phone: "(555) 634-9910",
     contact_email: "sandra@eastsidepantry.org",
     distance_mi: 3.2,
+    lat: 37.900,
+    lng: -122.300,
   },
 ];
 
@@ -220,7 +228,7 @@ export const MOCK_SURPLUS_OFFERS: SurplusOffer[] = [
     pickup_from: "15:00",
     pickup_by: "17:00",
     notes: "Plain and seeded varieties, baked this morning",
-    status: "pending",
+    status: "claimed",
     claimed_by: {
       org_name: "City Food Bank",
       contact_name: "Marcus Webb",

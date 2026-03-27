@@ -27,13 +27,15 @@ export interface SurplusOffer {
   pickup_from: string; // "14:00"
   pickup_by: string;   // "16:00"
   notes?: string;
-  status: "available" | "pending" | "claimed";
+  status: "available" | "pending" | "claimed" | "completed";
+  completed_at?: string;
   claimed_by?: {
     org_name: string;
     contact_name: string;
     contact_phone: string;
     contact_email: string;
     claimed_at: string;
+    note_to_kitchen?: string;
   };
 }
 
@@ -45,6 +47,8 @@ export interface Kitchen {
   contact_phone: string;
   contact_email: string;
   default_pickup_instructions: string;
+  lat: number;
+  lng: number;
 }
 
 export interface FoodBank {
@@ -54,6 +58,8 @@ export interface FoodBank {
   contact_phone: string;
   contact_email: string;
   distance_mi: number;
+  lat: number;
+  lng: number;
 }
 
 export type Role = "staff" | "manager" | "foodbank";
