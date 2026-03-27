@@ -89,7 +89,7 @@ export default function LoginPage() {
             <div className="w-8 h-8 rounded-full bg-[#4a7c2f] flex items-center justify-center">
               <Sprout size={16} strokeWidth={1.5} className="text-white" aria-hidden="true" />
             </div>
-            <span className="font-fraunces text-[13px] font-[500] text-[#9fc87d] tracking-widest uppercase">
+            <span className="font-fraunces text-[13px] font-[500] text-[#9fc87d] tracking-widest">
               Glean
             </span>
           </div>
