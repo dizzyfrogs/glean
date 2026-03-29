@@ -45,8 +45,6 @@ const ROLES: RoleOption[] = [
   },
 ];
 
-// repeating leaf pattern, tiled via background-image
-const PATTERN_SVG = `<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'><path d='M12 36 C12 36 18 28 24 24 C30 20 36 12 36 12' stroke='%234a7c2f' stroke-width='1' fill='none' opacity='0.25'/><circle cx='12' cy='36' r='1.5' fill='%234a7c2f' opacity='0.2'/><circle cx='36' cy='12' r='1.5' fill='%234a7c2f' opacity='0.2'/></svg>`;
 
 export default function LoginPage() {
   const router = useRouter();
@@ -69,8 +67,6 @@ export default function LoginPage() {
         className="relative lg:w-[52%] flex flex-col p-8 lg:p-12 overflow-hidden"
         style={{
           backgroundColor: "#2d5016",
-          backgroundImage: `url("data:image/svg+xml,${PATTERN_SVG}")`,
-          backgroundSize: "48px 48px",
         }}
       >
         {/* Radial glow */}
