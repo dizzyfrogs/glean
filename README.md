@@ -76,3 +76,6 @@ components/
 ## Notes
 
 All data is in-memory via Zustand. Nothing persists between page refreshes, which is intentional for the demo. The mock data in `lib/mock-data.ts` is seeded with 30 days of realistic waste logs designed to surface clear patterns for the AI recommendations.
+
+
+If `OPENAI_API_KEY` is not set, the recommendations panel falls back to mock recommendations so the demo works without an API key.
