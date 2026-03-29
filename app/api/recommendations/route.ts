@@ -41,7 +41,26 @@ export async function GET() {
 
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    return NextResponse.json({ error: "No API key configured." }, { status: 503 });
+    return NextResponse.json({
+      mock: true,
+      recommendations: [
+        {
+          type: "portion",
+          title: "Cut Tuesday Lunch Chicken Prep by a Third",
+          text: "Roasted chicken breast is your biggest protein loss — it spikes every Tuesday at lunch, which is consistently your lowest-turnout meal. Try prepping 30% less on Tuesdays and put out a second batch only if the first runs low. Ground beef at Tuesday dinner follows the same pattern, so trim that too.",
+        },
+        {
+          type: "portion",
+          title: "Order Fewer Dinner Rolls Every Single Day",
+          text: "Dinner rolls are wasted every day without exception — they're your most consistent write-off. Try ordering 20% fewer and see if you actually run short. They go stale overnight anyway, so any leftovers are a guaranteed loss regardless of quantity.",
+        },
+        {
+          type: "menu",
+          title: "Scale Down the Salad Bar on Thursdays and Fridays",
+          text: "Mixed greens and sliced vegetables pile up every Thursday and Friday when dining hall traffic drops. Set out a smaller initial fill on those two days, or switch to pre-portioned side salads instead of a full self-serve bar. Refreshing smaller batches will cut spoilage without leaving the station looking empty.",
+        },
+      ],
+    });
   }
 
   try {
