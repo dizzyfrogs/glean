@@ -32,7 +32,7 @@ export default function MetricsRow() {
   const redistributedLbs = surplusOffers
     .filter(
       (o) =>
-        o.status === "claimed" &&
+        (o.status === "claimed" || o.status === "completed") &&
         o.claimed_by &&
         o.claimed_by.claimed_at >= thisWeekStart
     )
