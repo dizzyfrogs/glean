@@ -16,6 +16,31 @@ Built for the 2026 ODU Hackathon.
 
 ---
 
+## Screenshots
+
+<details>
+<summary>Login</summary>
+
+<img width="420" height="449" alt="image" src="https://github.com/user-attachments/assets/ba8e25db-6ea2-427b-ab79-125cba26da55" />
+
+</details>
+
+<details>
+<summary>Manager Dashboard</summary>
+
+<img width="1172" height="1190" alt="image" src="https://github.com/user-attachments/assets/244fd27f-0453-44f4-9a29-09669a1aceb5" />
+
+</details>
+
+<details>
+<summary>Food Bank Feed</summary>
+
+<img width="1189" height="1091" alt="image" src="https://github.com/user-attachments/assets/06944b84-e812-4097-96e3-46fa702d7719" />
+
+</details>
+
+---
+
 ## Tech stack
 
 - Next.js 14 (App Router) + TypeScript
