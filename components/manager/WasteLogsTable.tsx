@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { Download, ChevronDown, ChevronUp } from "lucide-react";
+import { Download, ChevronDown, ChevronUp, ChevronRight } from "lucide-react";
 import { useStore } from "@/lib/store";
 import { WASTE_CATEGORIES, COST_PER_LB } from "@/lib/constants";
+import { WasteLog } from "@/lib/types";
+import { WasteLogDetailPanel } from "./WasteLogDetailPanel";
 
 function formatTime(iso: string): string {
   const d = new Date(iso + "T12:00:00");
@@ -52,6 +54,7 @@ const PAGE_SIZE = 20;
 export default function WasteLogsTable() {
   const wasteLogs = useStore((s) => s.wasteLogs);
   const [showAll, setShowAll] = useState(false);
+  const [selectedLog, setSelectedLog] = useState<WasteLog | null>(null);
   const recentLogs = showAll ? wasteLogs : wasteLogs.slice(0, PAGE_SIZE);
   const hasMore = wasteLogs.length > PAGE_SIZE;
 
@@ -80,7 +83,7 @@ export default function WasteLogsTable() {
         <table className="w-full">
           <thead>
             <tr className="bg-[#f8f7f5] border-b border-[#e7e5e0]">
-              {["Item", "Category", "Amount", "Est. Cost", "Logged By", "Meal", "Date"].map((h) => (
+              {["Item", "Category", "Amount", "Est. Cost", "Logged By", "Meal", "Date", ""].map((h) => (
                 <th
                   key={h}
                   className="px-4 py-3 text-left font-jakarta text-[11px] font-semibold uppercase tracking-wider text-[#7d7870] whitespace-nowrap"
@@ -130,6 +133,16 @@ export default function WasteLogsTable() {
                   <td className="px-4 py-3 font-jakarta text-[12px] text-[#7d7870] whitespace-nowrap">
                     {formatTime(log.date)}
                   </td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => setSelectedLog(log)}
+                      className="flex items-center gap-1 font-jakarta text-[12px] font-semibold text-[#4a7c2f] hover:text-[#3d6827] transition-colors min-h-[44px] px-1"
+                      aria-label={`View details for ${log.item}`}
+                    >
+                      View details
+                      <ChevronRight size={16} strokeWidth={1.5} aria-hidden />
+                    </button>
+                  </td>
                 </tr>
               );
             })}
@@ -163,6 +176,8 @@ export default function WasteLogsTable() {
           </button>
         </div>
       )}
+
+      <WasteLogDetailPanel log={selectedLog} onClose={() => setSelectedLog(null)} />
     </div>
   );
 }
